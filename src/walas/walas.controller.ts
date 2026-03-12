@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { WalasService } from './walas.service';
 import { CreateWalaDto } from './dto/create-wala.dto';
 import { UpdateWalaDto } from './dto/update-wala.dto';
@@ -20,6 +28,11 @@ export class WalasController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.walasService.findOne(+id);
+  }
+
+  @Get(':name')
+  findOneByName(@Param('name') name: string) {
+    return this.walasService.findOneByName(name);
   }
 
   @Patch(':id')
