@@ -1,26 +1,59 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class StudentService {
-  create(createStudentDto: CreateStudentDto) {
-    return 'This action adds a new student';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createStudentDto: CreateStudentDto) {
+    try {
+      return await this.prisma.student.create({ data: createStudentDto });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  findAll() {
-    return `This action returns all student`;
+  async findAll() {
+    try {
+      return await this.prisma.student.findMany({});
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} student`;
+  async findOne(id: number) {
+    try {
+      return await this.prisma.student.findMany({ where: { id } });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async findOneByName(name: string) {
+    try {
+      return await this.prisma.student.findMany({ where: { name } });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  update(id: number, updateStudentDto: UpdateStudentDto) {
-    return `This action updates a #${id} student`;
+  async update(id: number, updateStudentDto: UpdateStudentDto) {
+    try {
+      return await this.prisma.student.update({
+        where: { id },
+        data: updateStudentDto,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} student`;
+  async remove(id: number) {
+    try {
+      return await this.prisma.student.delete({ where: { id } });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

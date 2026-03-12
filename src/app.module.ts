@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { StudentModule } from './student/student.module';
 import { PeminjamanModule } from './peminjaman/peminjaman.module';
 import { BcryptModule } from './bcrypt/bcrypt.module';
+import { MemberModule } from './member/member.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { BcryptModule } from './bcrypt/bcrypt.module';
     StudentModule,
     PeminjamanModule,
     BcryptModule,
+    MemberModule,
   ],
   controllers: [AppController],
   providers: [AppService],
