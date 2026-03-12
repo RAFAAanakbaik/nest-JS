@@ -30,6 +30,13 @@ export class BooksService {
       console.log(error);
     }
   }
+  async findOneByName(name: string) {
+    try {
+      return await this.prisma.book.findMany({ where: { title: name } });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async update(id: number, updateBookDto: UpdateBookDto) {
     try {

@@ -16,32 +16,32 @@ export class WalasController {
   constructor(private readonly walasService: WalasService) {}
 
   @Post()
-  create(@Body() createWalaDto: CreateWalaDto) {
-    return this.walasService.create(createWalaDto);
+  async create(@Body() createWalaDto: CreateWalaDto) {
+    return await this.walasService.create(createWalaDto);
   }
 
   @Get()
-  findAll() {
-    return this.walasService.findAll();
+  async findAll() {
+    return await this.walasService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.walasService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.walasService.findOne(+id);
   }
 
   @Get(':name')
-  findOneByName(@Param('name') name: string) {
-    return this.walasService.findOneByName(name);
+  async findOneByName(@Param('name') name: string) {
+    return await this.walasService.findOneByName(name);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWalaDto: UpdateWalaDto) {
-    return this.walasService.update(+id, updateWalaDto);
+  async update(@Param('id') id: string, @Body() updateWalaDto: UpdateWalaDto) {
+    return await this.walasService.update(+id, updateWalaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.walasService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.walasService.remove(+id);
   }
 }

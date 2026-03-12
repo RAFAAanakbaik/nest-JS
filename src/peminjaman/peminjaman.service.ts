@@ -1,26 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePeminjamanDto } from './dto/create-peminjaman.dto';
-import { UpdatePeminjamanDto } from './dto/update-peminjaman.dto';
+import { PeminjamanDto } from './dto/peminjaman.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { PengembalianDto } from './dto/pengembalian.dto';
 
 @Injectable()
 export class PeminjamanService {
-  create(createPeminjamanDto: CreatePeminjamanDto) {
-    return 'This action adds a new peminjaman';
-  }
+  constructor(private readonly prisma: PrismaService) {}
 
-  findAll() {
-    return `This action returns all peminjaman`;
+  pinjam(peminjamanDto: PeminjamanDto) {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} peminjaman`;
-  }
-
-  update(id: number, updatePeminjamanDto: UpdatePeminjamanDto) {
-    return `This action updates a #${id} peminjaman`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} peminjaman`;
+  kembali(pengembalianDto: PengembalianDto) {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

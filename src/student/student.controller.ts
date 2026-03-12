@@ -16,32 +16,35 @@ export class StudentController {
   constructor(private readonly studentService: StudentService) {}
 
   @Post()
-  create(@Body() createStudentDto: CreateStudentDto) {
-    return this.studentService.create(createStudentDto);
+  async create(@Body() createStudentDto: CreateStudentDto) {
+    return await this.studentService.create(createStudentDto);
   }
 
   @Get()
-  findAll() {
-    return this.studentService.findAll();
+  async findAll() {
+    return await this.studentService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.studentService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.studentService.findOne(+id);
   }
 
   @Get(':name')
-  findOnebyName(@Param('name') name: string) {
-    return this.studentService.findOneByName(name);
+  async findOnebyName(@Param('name') name: string) {
+    return await this.studentService.findOneByName(name);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
-    return this.studentService.update(+id, updateStudentDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateStudentDto: UpdateStudentDto,
+  ) {
+    return await this.studentService.update(+id, updateStudentDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.studentService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.studentService.remove(+id);
   }
 }

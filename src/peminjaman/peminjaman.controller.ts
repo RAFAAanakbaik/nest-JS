@@ -1,7 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PeminjamanService } from './peminjaman.service';
-import { CreatePeminjamanDto } from './dto/create-peminjaman.dto';
-import { UpdatePeminjamanDto } from './dto/update-peminjaman.dto';
+import { CreatePeminjamanDto } from './dto/peminjaman.dto';
+import { UpdatePeminjamanDto } from './dto/pengembalian.dto';
 
 @Controller('peminjaman')
 export class PeminjamanController {
@@ -23,7 +31,10 @@ export class PeminjamanController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePeminjamanDto: UpdatePeminjamanDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updatePeminjamanDto: UpdatePeminjamanDto,
+  ) {
     return this.peminjamanService.update(+id, updatePeminjamanDto);
   }
 

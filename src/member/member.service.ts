@@ -7,23 +7,46 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class MemberService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createMemberDto: CreateMemberDto) {
-    return 'This action adds a new member';
+  async create(createMemberDto: CreateMemberDto) {
+    try {
+      return await this.prisma.member.create({ data: createMemberDto });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  findAll() {
-    return `This action returns all member`;
+  async findAll() {
+    try {
+      return await this.prisma.member.findMany({});
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} member`;
+  async findOne(id: number) {
+    try {
+      return await this.prisma.member.findMany({ where: { id } });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  update(id: number, updateMemberDto: UpdateMemberDto) {
-    return `This action updates a #${id} member`;
+  async update(id: number, updateMemberDto: UpdateMemberDto) {
+    try {
+      return await this.prisma.member.update({
+        where: { id },
+        data: updateMemberDto,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} member`;
+  async remove(id: number) {
+    try {
+      return await this.prisma.member.delete({ where: { id } });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
