@@ -19,6 +19,7 @@ export class UsersService {
       });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -27,6 +28,7 @@ export class UsersService {
       return await this.prisma.user.findMany({});
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -35,6 +37,7 @@ export class UsersService {
       return await this.prisma.user.findMany({ where: { id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -46,6 +49,7 @@ export class UsersService {
       });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -54,6 +58,7 @@ export class UsersService {
       return await this.prisma.user.delete({ where: { id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 }

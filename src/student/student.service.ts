@@ -12,6 +12,7 @@ export class StudentService {
       return await this.prisma.student.create({ data: createStudentDto });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -20,6 +21,7 @@ export class StudentService {
       return await this.prisma.student.findMany({});
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -28,6 +30,7 @@ export class StudentService {
       return await this.prisma.student.findMany({ where: { id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
   async findOneByName(name: string) {
@@ -35,6 +38,7 @@ export class StudentService {
       return await this.prisma.student.findMany({ where: { name } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -46,6 +50,7 @@ export class StudentService {
       });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -54,6 +59,7 @@ export class StudentService {
       return await this.prisma.student.delete({ where: { id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 }

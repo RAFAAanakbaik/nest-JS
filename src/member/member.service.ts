@@ -12,6 +12,7 @@ export class MemberService {
       return await this.prisma.member.create({ data: createMemberDto });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -20,6 +21,7 @@ export class MemberService {
       return await this.prisma.member.findMany({});
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -28,6 +30,7 @@ export class MemberService {
       return await this.prisma.member.findMany({ where: { id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -39,6 +42,7 @@ export class MemberService {
       });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -47,6 +51,7 @@ export class MemberService {
       return await this.prisma.member.delete({ where: { id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 }

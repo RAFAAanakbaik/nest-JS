@@ -12,6 +12,7 @@ export class BooksService {
       return await this.prisma.book.create({ data: createBookDto });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -20,6 +21,7 @@ export class BooksService {
       return await this.prisma.book.findMany({});
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -28,6 +30,7 @@ export class BooksService {
       return await this.prisma.book.findMany({ where: { id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
   async findOneByName(name: string) {
@@ -35,6 +38,7 @@ export class BooksService {
       return await this.prisma.book.findMany({ where: { title: name } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -46,6 +50,7 @@ export class BooksService {
       });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -54,6 +59,7 @@ export class BooksService {
       return await this.prisma.book.delete({ where: { id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 }

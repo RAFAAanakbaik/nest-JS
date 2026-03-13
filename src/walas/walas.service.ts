@@ -12,6 +12,7 @@ export class WalasService {
       return await this.prisma.walas.create({ data: createWalaDto });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -20,6 +21,7 @@ export class WalasService {
       return await this.prisma.walas.findMany({});
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -28,6 +30,7 @@ export class WalasService {
       return await this.prisma.walas.findMany({ where: { id_walas: id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
   async findOneByName(name: string) {
@@ -35,6 +38,7 @@ export class WalasService {
       return await this.prisma.walas.findMany({ where: { nama_walas: name } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -46,6 +50,7 @@ export class WalasService {
       });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -54,6 +59,7 @@ export class WalasService {
       return await this.prisma.walas.delete({ where: { id_walas: id } });
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
 }
