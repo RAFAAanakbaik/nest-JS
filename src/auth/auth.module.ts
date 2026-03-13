@@ -6,7 +6,16 @@ import { BcryptModule } from 'src/bcrypt/bcrypt.module';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [PrismaModule, BcryptModule, JwtModule],
+  imports: [
+    JwtModule.register({
+      global: true,
+      secret: process.env.SECRET_KEY,
+      signOptions: { expiresIn: '1d' },
+    }),
+    PrismaModule,
+    BcryptModule,
+    JwtModule,
+  ],
   controllers: [AuthController],
   providers: [AuthService],
 })
