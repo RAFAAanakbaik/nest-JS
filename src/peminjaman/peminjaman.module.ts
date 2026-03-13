@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PeminjamanService } from './peminjaman.service';
 import { PeminjamanController } from './peminjaman.controller';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
+  imports: [PrismaModule],
   controllers: [PeminjamanController],
   providers: [PeminjamanService],
 })

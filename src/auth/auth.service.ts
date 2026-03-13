@@ -1,26 +1,63 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { AuthDto } from './dto/authentication.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { BcryptService } from 'src/bcrypt/bcrypt.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
-  }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly bcrypt: BcryptService,
+    private readonly jwt: JwtService,
+  ) {}
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+  async auth(authDto: AuthDto) {
+    try {
+      const find = await this.prisma.user.findUnique({
+        where: { username: authDto.username },
+      });
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+      if (!find) {
+        throw new HttpException(
+          {
+            message: "Can't find that username, try again later!",
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+      const compare = await this.bcrypt.comparePassword(
+        authDto.password,
+        find.password,
+      );
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+      if (!compare) {
+        throw new HttpException(
+          { message: 'Wrong password, try again later' },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      const payload = {
+        id: find.id,
+        username: find.username,
+        role: find.role,
+      };
+      const token = await this.jwt.signAsync(payload);
+
+      return {
+        id: payload.id,
+        username: payload.username,
+        role: payload.role,
+        token,
+      };
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      console.log(error);
+      throw error;
+    }
   }
 }

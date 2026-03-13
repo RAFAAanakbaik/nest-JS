@@ -2,11 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Roles } from 'src/auth/decorator/role.decorator';
+import { Public } from 'src/auth/decorator/public.decorator';
 
 @Injectable()
 export class MemberService {
   constructor(private readonly prisma: PrismaService) {}
 
+  @Public()
   async create(createMemberDto: CreateMemberDto) {
     try {
       return await this.prisma.member.create({ data: createMemberDto });
@@ -16,6 +19,7 @@ export class MemberService {
     }
   }
 
+  @Roles('PETUGAS')
   async findAll() {
     try {
       return await this.prisma.member.findMany({});
@@ -25,6 +29,7 @@ export class MemberService {
     }
   }
 
+  @Roles('PETUGAS')
   async findOne(id: number) {
     try {
       return await this.prisma.member.findMany({ where: { id } });
@@ -34,6 +39,7 @@ export class MemberService {
     }
   }
 
+  @Public()
   async update(id: number, updateMemberDto: UpdateMemberDto) {
     try {
       return await this.prisma.member.update({
@@ -46,6 +52,7 @@ export class MemberService {
     }
   }
 
+  @Public()
   async remove(id: number) {
     try {
       return await this.prisma.member.delete({ where: { id } });

@@ -3,6 +3,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BcryptService } from 'src/bcrypt/bcrypt.service';
+import { Public } from 'src/auth/decorator/public.decorator';
+import { Roles } from 'src/auth/decorator/role.decorator';
 
 @Injectable()
 export class UsersService {
@@ -11,6 +13,7 @@ export class UsersService {
     private readonly bcrypt: BcryptService,
   ) {}
 
+  @Public()
   async create(createUserDto: CreateUserDto) {
     const hashed = await this.bcrypt.hashPassword(createUserDto.password);
     try {
@@ -23,6 +26,7 @@ export class UsersService {
     }
   }
 
+  @Roles('ADMIN')
   async findAll() {
     try {
       return await this.prisma.user.findMany({});
@@ -32,6 +36,7 @@ export class UsersService {
     }
   }
 
+  @Public()
   async findOne(id: number) {
     try {
       return await this.prisma.user.findMany({ where: { id } });
@@ -41,6 +46,7 @@ export class UsersService {
     }
   }
 
+  @Public()
   async update(id: number, updateUserDto: UpdateUserDto) {
     try {
       return await this.prisma.user.update({
@@ -53,6 +59,7 @@ export class UsersService {
     }
   }
 
+  @Public()
   async remove(id: number) {
     try {
       return await this.prisma.user.delete({ where: { id } });
