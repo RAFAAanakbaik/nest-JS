@@ -4,6 +4,8 @@ import { AuthController } from './auth.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { BcryptModule } from 'src/bcrypt/bcrypt.module';
 import { JwtModule } from '@nestjs/jwt';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './guard/role.guard';
 
 @Module({
   imports: [
@@ -17,6 +19,6 @@ import { JwtModule } from '@nestjs/jwt';
     JwtModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [{ provide: APP_GUARD, useClass: RolesGuard }, AuthService],
 })
 export class AuthModule {}
